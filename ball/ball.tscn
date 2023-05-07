@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpt7qf6kycrkw"]
+
+[ext_resource type="BoxMesh" uid="uid://bmp2ely0kmi3g" path="res://ball/PlaneMesh.tres" id="1_1g43h"]
+[ext_resource type="Script" path="res://ball/Movement.cs" id="2_2hj83"]
+[ext_resource type="Shape3D" uid="uid://c2ab0edfstdtx" path="res://ball/SphereShape.tres" id="2_nfntc"]
+[ext_resource type="Texture2D" uid="uid://bud7c6yf12c6l" path="res://_icon/icon.png" id="4_fonuk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5hgye"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_rpaff"]
+albedo_texture = ExtResource("4_fonuk")
+
+[sub_resource type="SphereMesh" id="SphereMesh_nqmxf"]
+material = SubResource("ORMMaterial3D_rpaff")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="Environment" id="Environment_cpjyh"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_w0n6j"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = ExtResource("1_1g43h")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_5hgye")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("2_2hj83")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = ExtResource("2_nfntc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("SphereMesh_nqmxf")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 3.29317e-06, -2.66675e-06, 0, 0.62932, 0.777147, 4.23752e-06, -0.777147, 0.62932, -5.38191e-05, 15.684, 12.7006)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cpjyh")
+camera_attributes = SubResource("CameraAttributesPhysical_w0n6j")
