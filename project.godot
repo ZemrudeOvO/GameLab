@@ -13,6 +13,7 @@ config_version=5
 config/name="GameLab"
 config/features=PackedStringArray("4.0", "C#", "Forward Plus")
 run/max_fps=30
+config/icon="res://science_alcohol_lamp_mesh.png"
 
 [display]
 
